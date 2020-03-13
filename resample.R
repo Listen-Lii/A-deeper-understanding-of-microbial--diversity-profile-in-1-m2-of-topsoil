@@ -1,4 +1,4 @@
-#之前因为需要自己写了一个resample的函数。
+##之前因为需要自己写了一个resample的函数。
 #因为传统实现resample的方法好像没有做迭代，只会重抽一次。这就导致了每次重抽会有一些差别。于是我加入了迭代。
 #懒得写成独立的函数了，就这样放出来，可以看到我每一步的想法。
 #思路是对于每个样本，先将每一个OTU和其对应的序列数相乘，从这个结果中进行重抽，并加入迭代。最后把迭代结果取平均并取整，即为该样本最终结果。
@@ -48,7 +48,7 @@ total = foreach(i=1:length(colnames(otu)),.combine = "cbind") %dopar% {
   f<-function(x){mean(as.numeric(as.vector(x)))}   
   mean_read = apply(total.summary,2,f)      #对1000次迭代的结果取平均后再取整作为最后结果
   round(mean_read)
-  gc()
+  #gc()
 }
 rownames(total) = rownames(otu)[ order(rownames(otu)) ]
 colnames(total) = colnames(otu)
